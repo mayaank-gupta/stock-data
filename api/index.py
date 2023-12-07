@@ -6,7 +6,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, world!'
+    stock_data = {}
+    stock = yf.Ticker('TCS.NS')
+    lastest_data = stock.history(period="1d")
+    stock_data['latest'] = lastest_data
+    return stock_data
 
 @app.route('/get_stock_data', methods=['POST'])
 def get_stock_data():
